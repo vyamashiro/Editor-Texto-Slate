@@ -1,4 +1,4 @@
-import SlateEditor from './Slate'
+import SlateEditor from './Slate/initial-tutorial'
 
 function App() {
   return (
