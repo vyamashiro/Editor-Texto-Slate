@@ -10,28 +10,17 @@ const CustomEditor = {
       match: n => n.bold === true,
       universal: true,
     })
-
     return !!match
   },
-
   isCodeBlockActive(editor) {
-    const [match] = Editor.nodes(editor, {
-      match: n => n.type === 'code',
-    })
-
+    const [match] = Editor.nodes(editor, { match: n => n.type === 'code' })
     return !!match
   },
-
   toggleBoldMark(editor) {
     const isActive = CustomEditor.isBoldMarkActive(editor)
     // Toggle the block type depending on whether there's already a match.
-    Transforms.setNodes(
-      editor,
-      { bold: isActive ? null : true },
-      { match: n => Text.isText(n), split: true }
-    )
+    Transforms.setNodes(editor, { bold: isActive ? null : true }, { match: n => Text.isText(n), split: true } )
   },
-
   toggleCodeBlock(editor) {
     const isActive = CustomEditor.isCodeBlockActive(editor)
     Transforms.setNodes(
@@ -47,7 +36,7 @@ const CustomEditor = {
 export default function SlateEditor() {
   // Create a Slate editor object that won't change across renders.
   const editor = useMemo(() => withReact(createEditor()), [])
-  const [value, setValue] = useState(
+  const [value, setValue] = useState( 
     JSON.parse(localStorage.getItem('SlateContent')) || [
     {
       type: 'paragraph',
@@ -67,9 +56,7 @@ export default function SlateEditor() {
   }, [])
 
   // Define a leaf rendering function that is memoized with `useCallback`.
-  const renderLeaf = useCallback(props => {
-    return <Leaf {...props} />
-  }, [])
+  const renderLeaf = useCallback(props => { return <Leaf {...props} /> }, [])
 
   return (
     <Slate 
@@ -129,10 +116,7 @@ export default function SlateEditor() {
 
 const Leaf = props => {
   return (
-    <span
-      {...props.attributes}
-      style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
-    >
+    <span {...props.attributes} style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }} >
       {props.children}
     </span>
   )
